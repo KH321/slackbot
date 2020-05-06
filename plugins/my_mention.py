@@ -61,6 +61,8 @@ def getspread(imgs, name):
   ws.update_cells(cell_list)
 
 def get_url(name, num=1):
+  if num > 46:
+    num = 46
   ws = get_ws('hinata', members[name])
   cell_list = ws.col_values(1)
 #   cell_value = ws.cell(random.randint(1, len(cell_list)), 1).value
