@@ -1,2 +1,2 @@
 # slackbot
-slack bot reply from spreadsheet
+slack bot reply and save from spreadsheet
