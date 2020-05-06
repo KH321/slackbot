@@ -68,7 +68,7 @@ def update_spread(imgs, name):
 def get_url(name, num=1):
   if num > 46:
     num = 46
-  ws = get_ws('hinata', members[name])
+  ws = get_ws('hinata', members_nicknames[name])
   cell_list = ws.col_values(1)
 #   cell_value = ws.cell(random.randint(1, len(cell_list)), 1).value
   cell_value = [ws.cell(random.randint(1, len(cell_list)), 1).value for i in range(num)]
