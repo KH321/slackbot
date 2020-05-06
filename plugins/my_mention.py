@@ -13,10 +13,15 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 members = {
   '金村 美玖': 'kanemura.miku',
-  'お寿司': 'kanemura.miku',
   '小坂 菜緒': 'kosaka.nao',
-  'こさかな': 'kosaka.nao'
+  '齊藤 京子': 'saitou.kyouko',
 }
+members_nicknames = {
+  'お寿司': members['金村 美玖'],
+  'こさかな': members['小坂 菜緒'],
+  'ラーメン': members['齊藤 京子'],
+}
+
 scope = ['https://spreadsheets.google.com/feeds',
          'https://www.googleapis.com/auth/drive']
 credential_obj = {
@@ -49,7 +54,7 @@ def get_ws(book_name, target_title):
     mws = sh.worksheet(str(target_title))
   return mws
 
-def getspread(imgs, name):
+def update_spread(imgs, name):
   ws = get_ws('hinata', members[name])
   cell_list = ws.col_values(1)
   print('A' + str(len(cell_list) + 1) + ':A' + str(len(cell_list) + len(imgs)))
@@ -85,7 +90,8 @@ def listen_func(message):
     print(img)
   for name in members:
     if re.search(name, text):
-      getspread(imgs, name)
+      update_spread(imgs, name)
+      break
 
 @respond_to('ラーメン大好き')
 def ramen_func(message):
@@ -93,10 +99,11 @@ def ramen_func(message):
 
 @respond_to(r'.*こさかな')
 @respond_to(r'.*お寿司')
+@respond_to(r'.*ラーメン')
 def img_func(message):
   num = re.findall('[0-9]+', message.body['text'])
   name = []
-  for name in members:
+  for name in members_nicknames:
     name = re.findall(name, message.body['text'])
     if len(name) != 0:
       break
