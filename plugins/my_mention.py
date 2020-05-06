@@ -89,16 +89,22 @@ def listen_func(message):
 def ramen_func(message):
     message.reply('齊藤京子です！')  # メンション
 
-# @respond_to(r'.*こさかな')
+@respond_to(r'.*こさかな')
 @respond_to(r'.*お寿司')
 def img_func(message):
   num = re.findall('[0-9]+', message.body['text'])
+  name = []
+  for name in members:
+    name = re.findall(name, message.body['text'])
+    if len(name) != 0:
+      break
+
   print(num)
   if len(num) == 0:
-    message.reply(get_url('お寿司')[0])
+    message.send(get_url(name[0])[0])
   else:
-    for url in get_url('お寿司', int(num[0])):
-      message.reply(url)
+    for url in get_url(name[0], int(num[0])):
+      message.send(url)
 
 count = 0
 @default_reply()
