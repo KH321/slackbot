@@ -97,22 +97,14 @@ def listen_func(message):
 def ramen_func(message):
     message.reply('齊藤京子です！')  # メンション
 
-@respond_to(r'.*こさかな')
-@respond_to(r'.*お寿司')
-@respond_to(r'.*ラーメン')
-def img_func(message):
+all_or_nickname = '|'.join(members_nicknames.keys())  # eg. "お寿司|こさかな|ラーメン"
+@respond_to(fr'[\s\S]*({all_or_nickname})')
+def img_func(message, re_name=''):
   num = re.findall('[0-9]+', message.body['text'])
-  name = []
-  for name in members_nicknames:
-    name = re.findall(name, message.body['text'])
-    if len(name) != 0:
-      break
-
-  print(num)
   if len(num) == 0:
-    message.send(get_url(name[0])[0])
+    message.send(get_url(re_name)[0])
   else:
-    for url in get_url(name[0], int(num[0])):
+    for url in get_url(re_name, int(num[0])):
       message.send(url)
 
 count = 0
