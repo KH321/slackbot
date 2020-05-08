@@ -58,6 +58,8 @@ def update_spread(imgs, name):
   ws = get_ws('hinata', members[name])
   cell_list = ws.col_values(1)
   print('A' + str(len(cell_list) + 1) + ':A' + str(len(cell_list) + len(imgs)))
+  if len(cell_list) + len(imgs) > ws.row_count:
+    ws.add_rows(len(cell_list) + len(imgs) - ws.row_count)
   cell_list = ws.range('A' + str(len(cell_list) + 1) + ':A' + str(len(cell_list) + len(imgs)))
   print(cell_list)
   for i, cell in enumerate(cell_list):
