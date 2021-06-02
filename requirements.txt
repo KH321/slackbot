@@ -28,5 +28,5 @@ slackbot==0.5.6
 slacker==0.14.0
 soupsieve==2.0
 uritemplate==3.0.1
-urllib3==1.25.9
+urllib3==1.26.5
 websocket-client==0.44.0
